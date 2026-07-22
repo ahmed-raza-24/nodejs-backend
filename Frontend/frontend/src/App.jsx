@@ -24,7 +24,7 @@ function App() {
 
 axios.get('http://localhost:3000/api/notes')
 .then((res)=>{
-  console.log()
+  setNotes(res.data.notes)
 })
 
   return (
