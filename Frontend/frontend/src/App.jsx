@@ -1,43 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import axios from "axios"
 
 function App() {
-  const [notes, setNotes] = useState([{
-    title: "test title 1",
-    description: "test description",
-  },
-  {
-    title: "test title 2",
-    description: "test description",
-  },
-  {
-    title: "test title 3",
-    description: "test description",
-  },
-  {
-    title: "test title 4",
-    description: "test description",
-  },
-])
+  const [notes, setNotes] = useState([])
 
-axios.get('http://localhost:3000/api/notes')
-.then((res)=>{
-  setNotes(res.data.notes)
-})
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/notes')
+      .then((res) => {
+        console.log(res.data) // yeh dekhne ke liye ki actual structure kya hai
+        setNotes(res.data.note || res.data)
+      })
+      .catch((err) => {
+        console.error("Error fetching notes:", err)
+      })
+  }, [])
 
   return (
     <>
-    <div className='notes'>
-      {
-        notes.map(note =>{
-          return <div className='note'>
+      <div className='notes'>
+        {notes.map((note, index) => (
+          <div className='note' key={note._id || index}>
             <h1>{note.title}</h1>
             <p>{note.description}</p>
           </div>
-        })
-      }
+        ))}
       </div>
     </>
   )
