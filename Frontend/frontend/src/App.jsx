@@ -31,7 +31,7 @@ axios.get('http://localhost:3000/api/notes')
     <>
     <div className='notes'>
       {
-        notes.map(note=>{
+        notes.map(note =>{
           return <div className='note'>
             <h1>{note.title}</h1>
             <p>{note.description}</p>
