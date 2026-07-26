@@ -34,6 +34,19 @@ function handleSubmit(e){
 
 }
 
+function handleDeleteNote(noteId){
+  console.log(noteId)
+
+  const {title, description} = noteId
+
+  axios.delete("http://localhost:3000/api/notes/"+noteId)
+  .then(res=>{
+    console.log(res.data)
+  })
+
+
+}
+
 
   return (
     <>
@@ -49,6 +62,7 @@ function handleSubmit(e){
           <div className='note' key={note._id || index}>
             <h1>{note.title}</h1>
             <p>{note.description}</p>
+            <button onClick={()=>{handleDeleteNote(note._id)}}>Delete</button>
           </div>
         ))}
       </div>
